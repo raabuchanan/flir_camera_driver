@@ -329,7 +329,7 @@ void SpinnakerCamera::grabImage(sensor_msgs::Image* image, const std::string& fr
     // Handle "Image Retrieval" Exception
     try
     {
-      Spinnaker::ImagePtr image_ptr = pCam_->GetNextImage(timeout_);
+      Spinnaker::ImagePtr image_ptr = pCam_->GetNextImage();
       //  std::string format(image_ptr->GetPixelFormatName());
       //  std::printf("\033[100m format: %s \n", format.c_str());
 
