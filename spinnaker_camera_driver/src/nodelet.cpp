@@ -259,6 +259,9 @@ private:
     // Get a serial number through ros
     int serial = 0;
 
+    // Start count at 1
+    image_counter_ = 1;
+
     XmlRpc::XmlRpcValue serial_xmlrpc;
     pnh.getParam("serial", serial_xmlrpc);
     if (serial_xmlrpc.getType() == XmlRpc::XmlRpcValue::TypeInt)
@@ -585,6 +588,8 @@ private:
             ros::Time time = ros::Time::now();
             wfov_image->header.stamp = time;
             wfov_image->image.header.stamp = time;
+            wfov_image->image.header.seq = image_counter_;
+            image_counter_++;
 
             // Set the CameraInfo message
             ci_.reset(new sensor_msgs::CameraInfo(cinfo_->getCameraInfo()));
@@ -708,6 +713,8 @@ private:
   int packet_size_;
   /// GigE packet delay:
   int packet_delay_;
+
+  uint32_t image_counter_;
 
   /// Configuration:
   spinnaker_camera_driver::SpinnakerConfig config_;
