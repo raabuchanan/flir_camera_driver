@@ -433,7 +433,7 @@ void SpinnakerCamera::grabImage(sensor_msgs::Image* image, const std::string& fr
         int stride = image_ptr->GetStride();
 
         // ROS_INFO_ONCE("\033[93m wxh: (%d, %d), stride: %d \n", width, height, stride);
-        fillImage(*image, imageEncoding, height, width, stride, image_ptr->GetData());
+        fillImage(*image,  sensor_msgs::image_encodings::MONO8, height, width, stride, image_ptr->GetData());
         image->header.frame_id = frame_id;
       }  // end else
     }
