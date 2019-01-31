@@ -33,16 +33,19 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <arg name="acquisition_frame_rate" default="15" />
   <arg name="acquisition_frame_rate_enable" default="false" />
 
-  <arg name="enable_trigger" default="On" />
+  <arg name="enable_trigger" default="Off" />
   <arg name="trigger_selector" default="FrameStart" />
   <arg name="trigger_activation_mode" default="RisingEdge" />
   <arg name="trigger_source" default="Line3" />
   <arg name="trigger_overlap_mode" default="ReadOut" />
 
-  <arg name="exposure_auto" default="Off" />
+  <arg name="exposure_auto" default="On" />
   <arg name="exposure_time" default="300" />
   <arg name="auto_exposure_time_upper_limit" default = "300000" />
-  <arg name="auto_gain" default="Off" />
+  <arg name="auto_gain" default="On" />
+
+  <param name="image_format_color_coding" value="BayerRG8" />
+  <param name="auto_white_balance" value="On" />
 
   <group ns="$(arg camera_name)">
     <node pkg="nodelet" type="nodelet" name="camera_nodelet_manager" args="manager" cwd="node" output="screen"/>
@@ -66,6 +69,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       <param name="auto_exposure_time_upper_limit" value="$(arg auto_exposure_time_upper_limit)" />
       <param name="auto_gain" value="$(arg auto_gain)" />
 
+      <param name="image_format_color_coding" value="(arg image_format_color_coding)" />
+      <param name="auto_white_balance" value="(arg auto_white_balance)" />
 
       <!-- TODO make this better -->
       <param name="camera_info_url" if="$(arg calibrated)"
