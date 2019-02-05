@@ -208,6 +208,11 @@ void Camera::setImageControlFormats(const spinnaker_camera_driver::SpinnakerConf
   // Apply offset Y
   setProperty(node_map_, "OffsetY", config.image_format_y_offset);
 
+  // Mirror X
+  setProperty(node_map_, "ReverseX", config.reverse_x);
+  // Mirror Y
+  setProperty(node_map_, "ReverseY", config.reverse_y);
+
   // Set Pixel Format
   setProperty(node_map_, "PixelFormat", config.image_format_color_coding);
 }

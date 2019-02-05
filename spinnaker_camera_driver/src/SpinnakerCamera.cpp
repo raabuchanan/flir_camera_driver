@@ -330,8 +330,8 @@ void SpinnakerCamera::grabImage(sensor_msgs::Image* image, const std::string& fr
     try
     {
       Spinnaker::ImagePtr image_ptr = pCam_->GetNextImage();
-      //  std::string format(image_ptr->GetPixelFormatName());
-      //  std::printf("\033[100m format: %s \n", format.c_str());
+/*       std::string format(image_ptr->GetPixelFormatName());
+      std::printf("\033[100m format: %s \n", format.c_str()); */
 
       if (image_ptr->IsIncomplete())
       {
@@ -433,6 +433,17 @@ void SpinnakerCamera::grabImage(sensor_msgs::Image* image, const std::string& fr
         int stride = image_ptr->GetStride();
 
         // ROS_INFO_ONCE("\033[93m wxh: (%d, %d), stride: %d \n", width, height, stride);
+
+        // Hack need to fix all the encoding bugs
+        Spinnaker::GenApi::CEnumerationPtr expected_encoding =
+        static_cast<Spinnaker::GenApi::CEnumerationPtr>(node_map_->GetNode("PixelFormat"));
+
+        Spinnaker::GenICam::gcstring expected_encoding_str = expected_encoding->ToString();
+        if(expected_encoding_str.compare("BGR8") == 0){
+          imageEncoding = sensor_msgs::image_encodings::BGR8;
+        }
+        
+        //ROS_INFO_STREAM("Encoding: " << imageEncoding);
         fillImage(*image, imageEncoding, height, width, stride, image_ptr->GetData());
         image->header.frame_id = frame_id;
       }  // end else

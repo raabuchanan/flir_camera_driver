@@ -259,8 +259,7 @@ private:
     // Get a serial number through ros
     int serial = 0;
 
-    // Start count at 1
-    image_counter_ = 1;
+    image_counter_ = 0;
 
     XmlRpc::XmlRpcValue serial_xmlrpc;
     pnh.getParam("serial", serial_xmlrpc);

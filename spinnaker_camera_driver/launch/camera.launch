@@ -43,9 +43,12 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <arg name="exposure_time" default="300" />
   <arg name="auto_exposure_time_upper_limit" default = "300000" />
   <arg name="auto_gain" default="On" />
-
-  <param name="image_format_color_coding" value="BayerRG8" />
-  <param name="auto_white_balance" value="On" />
+  <!-- This is the default encoding but Kalibr does not support it -->
+  <!-- <arg name="image_format_color_coding" value="BayerRG8" /> -->
+  <arg name="image_format_color_coding" value="BGR8" />
+  <arg name="auto_white_balance" value="On" />
+  <arg name="reverse_x" value="False" />
+  <arg name="reverse_y" value="False" />
 
   <group ns="$(arg camera_name)">
     <node pkg="nodelet" type="nodelet" name="camera_nodelet_manager" args="manager" cwd="node" output="screen"/>
@@ -69,8 +72,11 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       <param name="auto_exposure_time_upper_limit" value="$(arg auto_exposure_time_upper_limit)" />
       <param name="auto_gain" value="$(arg auto_gain)" />
 
-      <param name="image_format_color_coding" value="(arg image_format_color_coding)" />
-      <param name="auto_white_balance" value="(arg auto_white_balance)" />
+      <param name="image_format_color_coding" value="$(arg image_format_color_coding)" />
+      <param name="auto_white_balance" value="$(arg auto_white_balance)" />
+
+      <param name="reverse_x" value="$(arg reverse_x)" />
+      <param name="reverse_y" value="$(arg reverse_y)" />
 
       <!-- TODO make this better -->
       <param name="camera_info_url" if="$(arg calibrated)"
